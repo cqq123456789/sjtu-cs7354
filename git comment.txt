@@ -1,0 +1,120 @@
+克隆文件到仓库            git clone https://github.com/cqq123456789/sjtu-cs7354
+查看当前文件      ls
+进入文件仓库                cd sjtu-cs7354/
+
+任务一：
+1. 创建新的分支:（5‘）                           
+    git branch feature-newFunc
+    git checkout feature-newFunc          
+2. 在feature-newFunc分支上进行两次提交。（2‘）
+    第一次在diary.txt添加"2023-10-28: Started developing a new feature."，并保存文件
+    git add .
+    git commit -m "Added diary entry for feature work"
+    第二次在diary.txt添加"2023-10-29: Continued work on the new feature."，并保存文件
+    git add . 
+    git commit -m "Added another diary entry for feature work"
+3. 合并feature-newFunc分支上的两次提交，并合并整个功能到main分支。（13‘）
+    git rebase -i HEAD~2
+    将第二行前面的"pick"更改为"squash" ，用:wq保存退出     (注：在交互界面vim中i是进入插入模式，esc退出插入模式，:wq保存退出)
+    弹出的另外一个vim中，修改之前的信息描述变为：Squash two times change in diary.txt；用esc退出编辑模式，用:wq退出
+    git log  (注：查看提交历史，用q退出)
+    git checkout main
+    git merge feature-newFunc
+
+任务二：
+1. 确保你处于最新的main分支上（2’）
+    git branch experiment
+    git checkout experiment
+    git branch
+2. 从experiment分支上获取所需更改（5’）
+    打开node.txt文件，添加change 1保存，git add .   git commit -m "Added new approach details."
+    打开node.txt文件，添加change 2保存，git add .   git commit -m "Added another approach details"
+    git log --oneline experiment 复制第一次commit的hash编码（Added new approach details.）
+3. 应用选中的提交（请选择第一次commit（comment为：Added new approach details.））到main分支（10’）
+    git checkout main
+    git cherry-pick hash码
+4. 上传更改到远程仓库（3’）
+    git remote add origin https://github.com/cqq123456789/sjtu-cs7354
+    git remote -v 
+    git push origin main
+
+任务三：
+1. 确保在正确的分支上进行操作（2’）
+    git branch dev
+    git branch
+    git checkout dev
+2. 检查当前的提交历史（3’）
+    打开project.txt文件，添加Change 1保存，git add .   git commit -m "Add content"
+    打开project.txt文件，添加Change 2保存，git add .   git commit -m "Add new content"
+    打开project.txt文件，添加Change 3保存，git add .   git commit -m "Some content was added repeatedly"
+    打开project.txt文件，添加Change 4保存，git add .   git commit -m "Mistakenly added irrelevant content"    
+    git log  (注：查看提交历史，用q退出)
+3. 回退到目标提交（5’）
+    git log --oneline dev
+    git revert -n 第二次hash值..第四次hash值
+4. 再次提交（5’）
+    git status
+    git commit -m "Revert 3rd and 4th commit"
+5. 确认更改
+    查看project.txt文件中有Change 1和Change 2，没有Change 3和Change 4
+    git log  (注：查看提交历史，用q退出)
+6. 推送到远程仓库（5’）
+    git checkout main
+    git merge dev
+    git push origin main
+
+任务四：
+1. 在main分支上提交修改:（5’）
+    git branch feature-upload
+    git branch
+    打开styles.css文件，将第一行更改为：body { font-family: 'Times New Roman'; }
+    git add .
+    git commit -m "Revise font"
+2. 切换到feature-upload分支。（5’）
+    git checkout feature-upload
+3. 查看feature-upload与main分支之间的差异。（5’）
+    git diff feature-upload..main       （存在差异，并显示了不同的地方）
+4. 决定是否合并feature-upload分支到main。如果有合并冲突，请解决冲突后合并。（5’）
+    git merge main
+    git checkout main
+    git 
+
+任务五：
+1. 切换到documentation分支（3’）
+    git branch documentation
+    git branch
+    git checkout documentation
+    在documentation文件夹下，添加一个新的INSTALL_GUIDE.md文件(加入内容：Describes how to install the project.)，git add .   git commit -m "Add INSTALL_GUIDE.md file"
+    打开PROJECT_OVERVIEW.md文件，添加：Description of new features保存，git add .   git commit -m "New description"
+    在documentation文件夹下，添加一个新的CONTRIBUTING_GUIDE.md文件(加入内容：It provides.......)，git add .   git commit -m "Add CONTRIBUTING_GUIDE.md file"
+    打开PROJECT_OVERVIEW.md文件，添加Revised a mistake保存，git add .   git commit -m "Revised mistake"    
+2. 开始交互式重组（5’）
+    git rebase -i HEAD~4
+3. 重新排列、合并提交（5’）
+    先将第四行移动到第三行前面
+    将移动后的行前面"pick"更改为"squash" ，用:wq退出     (注：在交互界面vim中i是进入插入模式，esc退出插入模式，:wq保存退出)
+    弹出的另外一个vim中，修改之前的信息描述变为：Squash two times change in PROJECT_OVERVIEW.md，接着用:wq退出
+    git log  (注：查看提交历史，用q退出)
+    git rebase -i HEAD~3
+    先将第三行移动到第一行前面
+    用:wq退出     
+    git log  (注：查看提交历史，用q退出) 
+4. 完成重组后，将更改合并回main分支（4’）
+    git checkout main 
+    git merge documentation
+5. 将更改push回远程仓库（3’）
+    git push origin main
+
+
+提交git comment.txt文件
+    git status
+    将git comment.txt文件放在sjtu-cs7354文件夹下
+    git status
+    git add .
+    git commit -m "Operation instruction record"
+    git status
+    git push origin main
+
+
+仓库链接：https://github.com/cqq123456789/sjtu-cs7354
+    
