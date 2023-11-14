@@ -1,0 +1,1 @@
+It provides guidelines for developers on how to contribute code to the project
